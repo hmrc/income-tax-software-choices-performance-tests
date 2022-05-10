@@ -1,52 +1,97 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your performance test project.**
+# Income-Tax-Software-Choices-Performance-Tests
 
-# income-tax-software-choices-performance-tests
-Performance test suite for the `<digital service name>`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
+Performance test suite for the `Income-Tax-Software-Choices-Performance`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
 
+* [Quick start](#Quick-start)
+  - [Prerequisites](#Prerequisites)
+  - [How to start](#How-to-start)
+  - [How to use](#How-to-use)
+* [Persistence](#Persistence)
 
-## Running the tests
+# Quick start
 
-Prior to executing the tests ensure you have:
+## Prerequisites
 
-* Docker - to start mongo container
-* Installed/configured service manager
+* [sbt](http://www.scala-sbt.org/)
+* MongoDB (*[See Persistence](#Persistence)*)
+* HMRC Service manager (*[Install Service-Manager](https://github.com/hmrc/service-manager/wiki/Install#install-service-manager)*)
 
-Run the following command to start the services locally:
-```
-docker run --rm -d --name mongo -d -p 27017:27017 mongo:4.0
+## How to start
 
-sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
-```
+### Before running any tests
 
-Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.
+Start the services with `./scripts/run_services.sh`
 
-## Logging
+Params:
+* Additional sm parameters such as `--offline` can be added if desired
 
-The template uses [logback.xml](src/test/resources) to configure log levels. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests sent and responses received during the test.
+### Running the tests
 
 #### Smoke test
 
-It might be useful to try the journey with one user to check that everything works fine before running the full performance test
+Run performance tests with one user.  
+
+*Against services running locally:*
 ```
 sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
 ```
 
+*Against staging:*
+```
+sbt -Dperftest.runSmokeTest=true gatling:test
+```
+
 #### Running the performance test
+
+*Against services running locally:*
 ```
 sbt -DrunLocal=true gatling:test
 ```
-### Run the example test against staging environment
 
-#### Smoke test
+*Against staging:*
 ```
-sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
+sbt gatling:test
 ```
 
-#### Run the performance test
+## How to use
 
-To run a full performance test against staging environment, implement a job builder and run the test **only** from Jenkins.
+### Journeys
+
+Example:
+```
+journeys {
+
+  # Example
+  # Give a name to the journey.
+  example-journey = {
+
+    # The description will appear in the test report. Use something meaningful
+    description = "Example journey"
+
+    # The load is in journeys per second. Put here the load you are going to have at the peak.
+    # There is no need to put a higher value at this point. Use prerftest.loadPercentage in application.conf instead
+    load = 9.1
+
+    # This points to a csv file with the data you need to inject in the journey. [More here](https://github.com/hmrc/performance-test-runner#step-4-configure-the-user-feeder)
+    feeder = data/example.csv
+
+    # The parts your journey is made of. A part is made one or more requests.
+    parts = [
+      home-page,
+      post-vat-return-period,
+      get-turnover-page
+    ]
+  }
+
+}
+```
+
+### Logging
+
+The template uses [logback.xml](src/test/resources) to configure log levels. The default log level is *WARN*. This can be updated to use a lower level for example *TRACE* to view the requests sent and responses received during the test.
 
 ### Scalafmt
+
  This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
 
  To apply formatting to this repository using the configured rules in [.scalafmt.conf](.scalafmt.conf) execute:
@@ -62,3 +107,15 @@ To run a full performance test against staging environment, implement a job buil
  ```
 
 [Visit the official Scalafmt documentation to view a complete list of tasks which can be run.](https://scalameta.org/scalafmt/docs/installation.html#task-keys)
+
+# Persistence
+
+Data is stored as key/value in Mongo DB. See json reads/writes implementations (especially tests) for details.
+
+To connect to the mongo db provided by docker (recommended) please use
+
+```
+docker exec -it mongo-db mongosh
+```
+
+Various commands are available.  Start with `show dbs` to see which databases are populated.
