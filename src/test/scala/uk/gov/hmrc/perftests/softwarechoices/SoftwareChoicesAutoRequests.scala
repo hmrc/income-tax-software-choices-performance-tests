@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.example
+package uk.gov.hmrc.perftests.softwarechoices
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object HelloWorldRequests extends ServicesConfiguration {
+object SoftwareChoicesAutoRequests extends BaseRequests {
 
-  val baseUrl: String = baseUrlFor("software-choices-frontend")
-  val route: String   = "/making-tax-digital-income-tax-software"
+  val jsRoute: String = baseUrl + "/ajax"
 
-  val navigateToHomePage: HttpRequestBuilder =
-    http("Navigate to Home Page")
-      .get(s"$baseUrl$route/")
+  val submitSoftwareChoicesAutoSearch: HttpRequestBuilder =
+    http("Request an updated list of software vendors on the home page")
+      .post(jsRoute)
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("searchTerm", "test vendor")
       .check(status.is(200))
+
 }

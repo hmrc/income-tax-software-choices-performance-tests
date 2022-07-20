@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.example
+package uk.gov.hmrc.perftests.softwarechoices
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.example.HelloWorldRequests._
+import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesManualRequests._
 
-class HelloWorldSimulation extends PerformanceTestRunner {
+class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
-  setup("home-page", "Home Page") withRequests navigateToHomePage
+  setup("software-choices-manual", "User navigates to software choices and uses manual http submissions")
+    .withRequests(
+      navigateToSoftwareChoicesHome,
+      submitSoftwareChoicesSearch
+    )
+
+  setup("software-choices-js", "User searches for terms or filters using js route")
+    .withRequests(
+      navigateToSoftwareChoicesHome,
+      submitSoftwareChoicesSearch
+    )
 
   runSimulation()
+
 }
