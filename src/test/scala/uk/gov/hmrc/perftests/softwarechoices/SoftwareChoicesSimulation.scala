@@ -17,9 +17,10 @@
 package uk.gov.hmrc.perftests.softwarechoices
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
+import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests.navigateToProductDetails
 import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesManualRequests._
 
-class SoftwareChoicesSimulation extends PerformanceTestRunner {
+class SoftwareChoicesSimulation extends PerformanceTestRunner with FeatureSwitches {
 
   setup("software-choices-manual", "User navigates to software choices and uses manual http submissions")
     .withRequests(
@@ -31,6 +32,12 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
     .withRequests(
       navigateToSoftwareChoicesHome,
       submitSoftwareChoicesSearch
+    )
+
+  setup("product-details", "User views product details")
+    .withRequests(
+      setSwitches(switches),
+      navigateToProductDetails
     )
 
   runSimulation()

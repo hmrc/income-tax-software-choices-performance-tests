@@ -27,6 +27,8 @@ trait BaseRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("software-choices-frontend") + "/making-tax-digital-income-tax-software"
 
+  def productDetailsUrl(software: String): String = s"$baseUrl/product-details?software=$software"
+
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
 
   def saveCsrfToken: CheckBuilder[RegexCheckType, String, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
