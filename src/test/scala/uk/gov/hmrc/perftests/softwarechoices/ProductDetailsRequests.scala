@@ -22,9 +22,11 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object ProductDetailsRequests extends BaseRequests with FeatureSwitches {
 
+  lazy val vendorName: String = if(runLocal) "test+software+vendor+name+one" else "Sage"
+
   val navigateToProductDetails: HttpRequestBuilder =
     http("Navigate to product details page")
-      .get(productDetailsUrl("test%20software%20vendor%20name%20one"))
+      .get(productDetailsUrl(vendorName))
       .check(status.is(200))
 
 }
