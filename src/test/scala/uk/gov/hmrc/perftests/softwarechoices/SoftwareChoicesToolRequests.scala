@@ -20,20 +20,22 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object GlossaryManualRequests extends BaseRequests {
+object SoftwareChoicesToolRequests extends BaseRequests {
 
-  val navigateToGlossary: HttpRequestBuilder =
-    http("Navigate to the glossary page")
-      .get(glossaryUrl)
+  val pageUri: String = "/"
+  val fullUrl: String = baseUrl + pageUri
+
+  val navigateToSoftwareChoicesHome: HttpRequestBuilder =
+    http("Navigate to software choices home page")
+      .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitGlossarySearch: HttpRequestBuilder =
-    http("Submit the search on the glossary page")
-      .post(glossaryUrl)
+  val submitSoftwareChoicesSearch: HttpRequestBuilder =
+    http("Submit the software choices search on the home page")
+      .post(fullUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("searchTerm", "HMRC")
-      .formParam("sortTerm", "asc")
+      .formParam("searchTerm", "test vendor")
       .check(status.is(200))
 
 }

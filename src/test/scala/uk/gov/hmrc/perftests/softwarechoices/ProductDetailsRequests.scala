@@ -20,9 +20,11 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object ProductDetailsRequests extends BaseRequests with FeatureSwitches {
+object ProductDetailsRequests extends BaseRequests {
 
-  lazy val vendorName: String = if(runLocal) "test+software+vendor+name+one" else "Sage"
+  def productDetailsUrl(software: String): String = s"$baseUrl/product-details/$software"
+
+  lazy val vendorName: String = if (runLocal) "test+software+vendor+name+one" else "Sage"
 
   val navigateToProductDetails: HttpRequestBuilder =
     http("Navigate to product details page")
