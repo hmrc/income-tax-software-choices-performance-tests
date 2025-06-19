@@ -20,16 +20,29 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object GlossaryAutoRequests extends BaseRequests {
+object BusinessIncomeRequests extends BaseRequests {
 
-  val jsRoute: String = baseUrl + s"$glossaryUrl/ajax"
+  val pageUri: String = "/business-income"
+  val fullUrl: String = baseUrl + pageUri
 
-  val submitGlossaryAutoSearch: HttpRequestBuilder =
-    http("Request an updated list of glossary content on the glossary page")
-      .post(jsRoute)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("searchTerm", "HMRC")
-      .formParam("sortTerm", "asc")
+  val navigateToBusinessIncome: HttpRequestBuilder =
+    http("Navigate to the business income page")
+      .get(fullUrl)
       .check(status.is(200))
+      .check(saveCsrfToken)
+
+  val submitBusinessIncome: HttpRequestBuilder =
+    http("Submit the business income page")
+      .post(fullUrl)
+      .formParamSeq(
+        Seq(
+          "csrfToken"        -> "${csrfToken}",
+          "businessIncome[]" -> "sole-trader",
+          "businessIncome[]" -> "uk-property",
+          "businessIncome[]" -> "overseas-property"
+        )
+      )
+      .check(status.is(303))
+      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
 
 }

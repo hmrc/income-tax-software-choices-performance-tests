@@ -26,9 +26,6 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 trait BaseRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("software-choices-frontend") + "/making-tax-digital-income-tax-software"
-  val glossaryUrl: String = s"$baseUrl/glossary"
-
-  def productDetailsUrl(software: String): String = s"$baseUrl/product-details/$software"
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
 

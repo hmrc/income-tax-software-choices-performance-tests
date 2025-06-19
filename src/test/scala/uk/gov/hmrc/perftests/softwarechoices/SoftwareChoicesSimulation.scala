@@ -17,42 +17,30 @@
 package uk.gov.hmrc.perftests.softwarechoices
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.softwarechoices.GlossaryAutoRequests.submitGlossaryAutoSearch
-import uk.gov.hmrc.perftests.softwarechoices.GlossaryManualRequests.{navigateToGlossary, submitGlossarySearch}
-import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests.navigateToProductDetails
-import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesAutoRequests.submitSoftwareChoicesAutoSearch
-import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesManualRequests._
+import uk.gov.hmrc.perftests.softwarechoices.BusinessIncomeRequests._
+import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
+import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesToolRequests._
 
-class SoftwareChoicesSimulation extends PerformanceTestRunner with FeatureSwitches {
+class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
-  setup("software-choices-manual", "User navigates to software choices home page and uses manual http submissions")
+  setup("software-choices-tool", "User navigates to software choices home page and uses manual http submissions")
     .withRequests(
       navigateToSoftwareChoicesHome,
       submitSoftwareChoicesSearch
     )
 
-  setup("software-choices-js", "User searches for terms or filters using js route of the software choices home page")
-    .withRequests(
-      navigateToSoftwareChoicesHome,
-      submitSoftwareChoicesAutoSearch
-    )
-
   setup("product-details", "User views product details")
     .withRequests(
-      setSwitches(switches),
       navigateToProductDetails
     )
 
-  setup("glossary-manual", "User navigates to the glossary page and uses manual http submissions")
+  setup("full-journey", "User journey from pre tool questions through to product details")
     .withRequests(
-      navigateToGlossary,
-      submitGlossarySearch
-    )
-
-  setup("glossary-js", "User searches for terms using js route of the glossary page")
-    .withRequests(
-      navigateToGlossary,
-      submitGlossaryAutoSearch
+      navigateToBusinessIncome,
+      submitBusinessIncome,
+      navigateToSoftwareChoicesHome,
+      submitSoftwareChoicesSearch,
+      navigateToProductDetails
     )
 
   runSimulation()
