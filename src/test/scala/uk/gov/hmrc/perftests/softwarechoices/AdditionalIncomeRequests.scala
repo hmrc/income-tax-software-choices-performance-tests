@@ -20,29 +20,34 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object BusinessIncomeRequests extends BaseRequests {
+object AdditionalIncomeRequests extends BaseRequests {
 
-  val pageUri: String = "/business-income"
+  val pageUri: String = "/additional-income"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToBusinessIncome: HttpRequestBuilder =
-    http("Navigate to the business income page")
+  val navigateToAdditionalIncome: HttpRequestBuilder =
+    http("Navigate to the additional income page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitBusinessIncome: HttpRequestBuilder =
-    http("Submit the business income page")
+  val submitAdditionalIncome: HttpRequestBuilder =
+    http("Submit the additional income page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"        -> "${csrfToken}",
-          "businessIncome[]" -> "sole-trader",
-          "businessIncome[]" -> "uk-property",
-          "businessIncome[]" -> "overseas-property"
+          "csrfToken"          -> "${csrfToken}",
+          "additionalIncome[]" -> "uk-interest",
+          "additionalIncome[]" -> "construction-industry-scheme",
+          "additionalIncome[]" -> "employment",
+          "additionalIncome[]" -> "uk-dividends",
+          "additionalIncome[]" -> "state-pension-income",
+          "additionalIncome[]" -> "private-pension-income",
+          "additionalIncome[]" -> "foreign-dividends",
+          "additionalIncome[]" -> "foreign-interest"
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(AdditionalIncomeRequests.pageUri))
+      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
 
 }
