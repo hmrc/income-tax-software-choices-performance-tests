@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,35 +19,33 @@ package uk.gov.hmrc.perftests.softwarechoices
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
+object OtherItemsRequests extends BaseRequests {
 
-object AdditionalIncomeRequests extends BaseRequests {
-
-  val pageUri: String = "/additional-income"
+  val pageUri: String = "/other-items"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToAdditionalIncome: HttpRequestBuilder =
-    http("Navigate to the additional income page")
+  val navigateToOtherItems: HttpRequestBuilder =
+    http("Navigate to the other items page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitAdditionalIncome: HttpRequestBuilder =
-    http("Submit the additional income page")
+  val submitOtherItems: HttpRequestBuilder =
+    http("Submit the other items page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
           "csrfToken"          -> "${csrfToken}",
-          "additionalIncome[]" -> "uk-interest",
-          "additionalIncome[]" -> "construction-industry-scheme",
-          "additionalIncome[]" -> "employment",
-          "additionalIncome[]" -> "uk-dividends",
-          "additionalIncome[]" -> "state-pension-income",
-          "additionalIncome[]" -> "private-pension-income",
-          "additionalIncome[]" -> "foreign-dividends",
-          "additionalIncome[]" -> "foreign-interest"
+          "otherItems[]" -> "private-pension-contributions",
+          "otherItems[]" -> "charitable-giving",
+          "otherItems[]" -> "capital-gains-tax",
+          "otherItems[]" -> "student-loans",
+          "otherItems[]" -> "marriage-allowance",
+          "otherItems[]" -> "voluntary-class-2-national-insurance",
+          "otherItems[]" -> "high-income-child-benefit-charge"
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(OtherItemsRequests.pageUri))
+      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
 
 }
