@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,33 +19,28 @@ package uk.gov.hmrc.perftests.softwarechoices
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
-object OtherItemsRequests extends BaseRequests {
 
-  val pageUri: String = "/other-items"
+object AccountingPeriodRequests extends BaseRequests {
+
+  val pageUri: String = "/accounting-period"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToOtherItems: HttpRequestBuilder =
-    http("Navigate to the other items page")
+  val navigateToAccountingPeriod: HttpRequestBuilder =
+    http("Navigate to the accounting period page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitOtherItems: HttpRequestBuilder =
-    http("Submit the other items page")
+  val submitAccountingPeriod: HttpRequestBuilder =
+    http("Submit the accounting period page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"    -> "${csrfToken}",
-          "otherItems[]" -> "private-pension-contributions",
-          "otherItems[]" -> "charitable-giving",
-          "otherItems[]" -> "capital-gains-tax",
-          "otherItems[]" -> "student-loans",
-          "otherItems[]" -> "marriage-allowance",
-          "otherItems[]" -> "voluntary-class-2-national-insurance",
-          "otherItems[]" -> "high-income-child-benefit-charge"
+          "csrfToken"        -> "${csrfToken}",
+          "accounting-period" -> "sixth-april-to-fifth-april"
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(AccountingPeriodRequests.pageUri))
+      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
 
 }
