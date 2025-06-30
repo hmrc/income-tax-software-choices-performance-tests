@@ -20,27 +20,26 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object AccountingPeriodRequests extends BaseRequests {
+object CheckYourAnswersRequests extends BaseRequests {
 
-  val pageUri: String = "/accounting-period"
+  val pageUri: String = "/check-your-answers"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToAccountingPeriod: HttpRequestBuilder =
-    http("Navigate to the accounting period page")
+  val navigateToCheckYourAnswers: HttpRequestBuilder =
+    http("Navigate to the check your answers page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitAccountingPeriod: HttpRequestBuilder =
-    http("Submit the accounting period page")
+  val submitCheckYourAnswers: HttpRequestBuilder =
+    http("Submit the check your answers page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"         -> "${csrfToken}",
-          "accounting-period" -> "sixth-april-to-fifth-april"
+          "csrfToken" -> "${csrfToken}"
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(CheckYourAnswersRequests.pageUri))
+      .check(redirectionLocationIs("/making-tax-digital-income-tax-software"))
 
 }

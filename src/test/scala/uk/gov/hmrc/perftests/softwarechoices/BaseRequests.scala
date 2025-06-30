@@ -32,6 +32,6 @@ trait BaseRequests extends ServicesConfiguration {
   def saveCsrfToken: CheckBuilder[RegexCheckType, String, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
 
   def redirectionLocationIs(location: String): CheckBuilder[HttpHeaderRegexCheckType, Response, String] =
-    headerRegex("Location", s".*$location.*")
+    headerRegex("Location", s"^.*$location$$")
 
 }

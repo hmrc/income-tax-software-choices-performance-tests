@@ -20,6 +20,7 @@ import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.softwarechoices.AccountingPeriodRequests._
 import uk.gov.hmrc.perftests.softwarechoices.AdditionalIncomeRequests._
 import uk.gov.hmrc.perftests.softwarechoices.BusinessIncomeRequests._
+import uk.gov.hmrc.perftests.softwarechoices.CheckYourAnswersRequests._
 import uk.gov.hmrc.perftests.softwarechoices.OtherItemsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesToolRequests._
@@ -47,6 +48,8 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
       submitOtherItems,
       navigateToAccountingPeriod,
       submitAccountingPeriod,
+      navigateToCheckYourAnswers,
+      submitCheckYourAnswers,
       navigateToSoftwareChoicesHome,
       submitSoftwareChoicesSearch,
       navigateToProductDetails
