@@ -24,6 +24,7 @@ import uk.gov.hmrc.perftests.softwarechoices.CheckYourAnswersRequests._
 import uk.gov.hmrc.perftests.softwarechoices.OtherItemsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesToolRequests._
+import uk.gov.hmrc.perftests.softwarechoices.UserTypeRequests._
 
 class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
@@ -40,6 +41,8 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
   setup("full-journey", "User journey from pre tool questions through to product details")
     .withRequests(
+      navigateToUserType,
+      submitUserType,
       navigateToBusinessIncome,
       submitBusinessIncome,
       navigateToAdditionalIncome,

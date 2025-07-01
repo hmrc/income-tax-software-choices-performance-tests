@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,30 +16,32 @@
 
 package uk.gov.hmrc.perftests.softwarechoices
 
-import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import io.gatling.core.Predef._
+
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object CheckYourAnswersRequests extends BaseRequests {
+object UserTypeRequests extends BaseRequests {
 
-  val pageUri: String = "/check-your-answers"
+  val pageUri: String = "/type-of-user"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToCheckYourAnswers: HttpRequestBuilder =
-    http("Navigate to the check your answers page")
+  val navigateToUserType: HttpRequestBuilder =
+    http("Navigate to the user type page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitCheckYourAnswers: HttpRequestBuilder =
-    http("Submit the check your answers page")
+  val submitUserType: HttpRequestBuilder =
+    http("Submit the user type page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken" -> "${csrfToken}"
+          "csrfToken" -> "${csrfToken}",
+          "type-of-user" -> "sole-trader-or-landlord"
         )
       )
       .check(status.is(303))
-//      .check(redirectionLocationIs(CheckYourAnswersRequests.pageUri)) // this is the ZeroResults route as there are no vendors that match the criteria selected on pe=revious pages
+      .check(redirectionLocationIs(BusinessIncomeRequests.pageUri))
 
 }
