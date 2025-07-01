@@ -36,7 +36,7 @@ object OtherItemsRequests extends BaseRequests {
       .formParamSeq(
         Seq(
           "csrfToken"    -> "${csrfToken}",
-          "otherItems[]" -> "private-pension-contributions",
+          "otherItems[]" -> "payments-into-a-private-pension",
           "otherItems[]" -> "charitable-giving",
           "otherItems[]" -> "capital-gains-tax",
           "otherItems[]" -> "student-loans",

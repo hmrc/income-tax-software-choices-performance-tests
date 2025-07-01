@@ -42,9 +42,9 @@ object AdditionalIncomeRequests extends BaseRequests {
           "additionalIncome[]" -> "employment",
           "additionalIncome[]" -> "uk-dividends",
           "additionalIncome[]" -> "state-pension-income",
-          "additionalIncome[]" -> "private-pension-income",
-          "additionalIncome[]" -> "foreign-dividends",
-          "additionalIncome[]" -> "foreign-interest"
+          "additionalIncome[]" -> "private-pension-income"
+//          "additionalIncome[]" -> "foreign-dividends",
+//          "additionalIncome[]" -> "foreign-interest"
         )
       )
       .check(status.is(303))
