@@ -40,6 +40,6 @@ object CheckYourAnswersRequests extends BaseRequests {
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(CheckYourAnswersRequests.pageUri))
+      .check(redirectionLocationIs(CheckYourAnswersRequests.pageUri)) // this is the ZeroResults route as there are no vendors that match the criteria selected on pe=revious pages
 
 }
