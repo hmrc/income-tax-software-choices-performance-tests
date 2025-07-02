@@ -34,4 +34,7 @@ trait BaseRequests extends ServicesConfiguration {
   def redirectionLocationIs(location: String): CheckBuilder[HttpHeaderRegexCheckType, Response, String] =
     headerRegex("Location", s"^.*$location$$")
 
+  def redirectionToBaseURL(): CheckBuilder[HttpHeaderRegexCheckType, Response, String] =
+    headerRegex("Location", baseUrl)
+
 }
