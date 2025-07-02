@@ -40,6 +40,6 @@ object CheckYourAnswersRequests extends BaseRequests {
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
+      .check(redirectionLocationIs(CheckYourAnswersRequests.pageUri))
 
 }
