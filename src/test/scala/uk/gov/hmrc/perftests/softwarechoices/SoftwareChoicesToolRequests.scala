@@ -35,7 +35,6 @@ object SoftwareChoicesToolRequests extends BaseRequests {
     http("Submit the software choices search on the home page")
       .post(fullUrl)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("searchTerm", "test vendor")
       .check(status.is(200))
 
 }
