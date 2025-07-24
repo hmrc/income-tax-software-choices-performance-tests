@@ -24,7 +24,7 @@ object ProductDetailsRequests extends BaseRequests {
 
   def productDetailsUrl(software: String): String = s"$baseUrl/product-details/$software"
 
-  lazy val vendorName: String = if (runLocal) "test+software+vendor+name+one" else "Sage"
+  lazy val vendorName: String = "test+software+vendor+name+one"
 
   val navigateToProductDetails: HttpRequestBuilder =
     http("Navigate to product details page")
