@@ -36,7 +36,7 @@ object CheckYourAnswersRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken" -> "${csrfToken}"
+          "csrfToken" -> "#{csrfToken}"
         )
       )
       .check(status.is(303))
