@@ -16,9 +16,8 @@
 
 package uk.gov.hmrc.perftests.softwarechoices
 
-import io.gatling.http.Predef._
 import io.gatling.core.Predef._
-
+import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
 object UserTypeRequests extends BaseRequests {
@@ -32,16 +31,18 @@ object UserTypeRequests extends BaseRequests {
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitUserType: HttpRequestBuilder =
+  def submitUserType(isAgent: Boolean = false): HttpRequestBuilder =
     http("Submit the user type page")
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken" -> "${csrfToken}",
-          "type-of-user" -> "sole-trader-or-landlord"
+          "csrfToken"    -> "${csrfToken}",
+          "type-of-user" -> (if (isAgent) "agent" else "sole-trader-or-landlord")
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(BusinessIncomeRequests.pageUri))
+      .check(redirectionLocationIs(
+        location = if(isAgent) SoftwareChoicesToolRequests.pageUri else BusinessIncomeRequests.pageUri
+      ))
 
 }
