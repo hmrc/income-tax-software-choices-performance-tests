@@ -31,6 +31,8 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
   setup("software-choices-tool", "User navigates to software choices home page and uses manual http submissions")
     .withRequests(
+      navigateToUserType,
+      submitUserType(isAgent = true),
       navigateToSoftwareChoicesHome,
       submitSoftwareChoicesSearch
     )
@@ -44,7 +46,7 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
     .withRequests(
       navigateToIndex,
       navigateToUserType,
-      submitUserType,
+      submitUserType(),
       navigateToBusinessIncome,
       submitBusinessIncome,
       navigateToAdditionalIncome,
