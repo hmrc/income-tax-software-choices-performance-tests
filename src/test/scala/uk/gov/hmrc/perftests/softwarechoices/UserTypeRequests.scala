@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object UserTypeRequests extends BaseRequests {
 
-  val pageUri: String = "/type-of-user"
+  val pageUri: String = "/how-will-you-use-it"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToUserType: HttpRequestBuilder =

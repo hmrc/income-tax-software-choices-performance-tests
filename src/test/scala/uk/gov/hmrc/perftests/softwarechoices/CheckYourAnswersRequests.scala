@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object CheckYourAnswersRequests extends BaseRequests {
 
-  val pageUri: String = "/check-your-answers"
+  val pageUri: String = "/check-answers"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToCheckYourAnswers: HttpRequestBuilder =

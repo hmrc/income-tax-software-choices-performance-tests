@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object AdditionalIncomeRequests extends BaseRequests {
 
-  val pageUri: String = "/additional-income"
+  val pageUri: String = "/which-additional-income-source"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToAdditionalIncome: HttpRequestBuilder =

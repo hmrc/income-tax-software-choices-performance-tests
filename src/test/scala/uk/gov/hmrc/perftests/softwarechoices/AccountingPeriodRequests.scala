@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object AccountingPeriodRequests extends BaseRequests {
 
-  val pageUri: String = "/accounting-period"
+  val pageUri: String = "/accounting-period-check"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToAccountingPeriod: HttpRequestBuilder =
