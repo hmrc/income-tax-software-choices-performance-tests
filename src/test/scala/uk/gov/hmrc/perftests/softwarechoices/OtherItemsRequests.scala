@@ -21,7 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 object OtherItemsRequests extends BaseRequests {
 
-  val pageUri: String = "/other-items"
+  val pageUri: String = "/what-else-do-you-need-tell-us"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToOtherItems: HttpRequestBuilder =
