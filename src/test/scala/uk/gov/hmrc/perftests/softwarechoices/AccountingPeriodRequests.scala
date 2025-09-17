@@ -36,7 +36,7 @@ object AccountingPeriodRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"         -> "${csrfToken}",
+          "csrfToken"         -> "#{csrfToken}",
           "accounting-period" -> "sixth-april-to-fifth-april"
         )
       )

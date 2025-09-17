@@ -36,7 +36,7 @@ object UserTypeRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"    -> "${csrfToken}",
+          "csrfToken"    -> "#{csrfToken}",
           "type-of-user" -> (if (isAgent) "agent" else "sole-trader-or-landlord")
         )
       )
