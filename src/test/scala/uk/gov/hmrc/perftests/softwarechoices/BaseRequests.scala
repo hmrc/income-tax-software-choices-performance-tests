@@ -29,9 +29,9 @@ trait BaseRequests extends ServicesConfiguration {
 
   val CsrfPattern = """<input type="hidden" name="csrfToken" value="([^"]+)""""
 
-  def saveCsrfToken: CheckBuilder[RegexCheckType, String, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
+  def saveCsrfToken: CheckBuilder[RegexCheckType, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
 
-  def redirectionLocationIs(location: String): CheckBuilder[HttpHeaderRegexCheckType, Response, String] =
+  def redirectionLocationIs(location: String): CheckBuilder[HttpHeaderRegexCheckType, Response] =
     headerRegex("Location", s"^.*$location$$")
 
 }

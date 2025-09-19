@@ -36,7 +36,7 @@ object BusinessIncomeRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"        -> "${csrfToken}",
+          "csrfToken"        -> "#{csrfToken}",
           "businessIncome[]" -> "sole-trader",
           "businessIncome[]" -> "uk-property",
           "businessIncome[]" -> "overseas-property"

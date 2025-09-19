@@ -36,7 +36,7 @@ object AdditionalIncomeRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"          -> "${csrfToken}",
+          "csrfToken"          -> "#{csrfToken}",
           "additionalIncome[]" -> "uk-interest",
           "additionalIncome[]" -> "construction-industry-scheme",
           "additionalIncome[]" -> "employment",

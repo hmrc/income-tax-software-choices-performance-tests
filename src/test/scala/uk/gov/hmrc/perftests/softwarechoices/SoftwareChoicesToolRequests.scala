@@ -34,7 +34,7 @@ object SoftwareChoicesToolRequests extends BaseRequests {
   val submitSoftwareChoicesSearch: HttpRequestBuilder =
     http("Submit the software choices search on the home page")
       .post(fullUrl)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(200))
 
 }

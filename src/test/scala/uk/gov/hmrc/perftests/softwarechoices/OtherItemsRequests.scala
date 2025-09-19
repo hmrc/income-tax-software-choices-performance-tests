@@ -35,7 +35,7 @@ object OtherItemsRequests extends BaseRequests {
       .post(fullUrl)
       .formParamSeq(
         Seq(
-          "csrfToken"    -> "${csrfToken}",
+          "csrfToken"    -> "#{csrfToken}",
           "otherItems[]" -> "payments-into-a-private-pension",
           "otherItems[]" -> "charitable-giving",
           "otherItems[]" -> "capital-gains-tax",
