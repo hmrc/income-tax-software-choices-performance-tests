@@ -21,6 +21,7 @@ import uk.gov.hmrc.perftests.softwarechoices.AccountingPeriodRequests._
 import uk.gov.hmrc.perftests.softwarechoices.AdditionalIncomeRequests._
 import uk.gov.hmrc.perftests.softwarechoices.BusinessIncomeRequests._
 import uk.gov.hmrc.perftests.softwarechoices.CheckYourAnswersRequests._
+import uk.gov.hmrc.perftests.softwarechoices.ChoosingSoftwareRequests.{navigateToChoosingSoftware, submitChoosingSoftware}
 import uk.gov.hmrc.perftests.softwarechoices.IndexRequests._
 import uk.gov.hmrc.perftests.softwarechoices.OtherItemsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
@@ -29,12 +30,13 @@ import uk.gov.hmrc.perftests.softwarechoices.UserTypeRequests._
 
 class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
-  setup("software-choices-tool", "User navigates to software choices home page and uses manual http submissions")
+  setup("agent-journey", "Agent uses the service through to product details")
     .withRequests(
       navigateToUserType,
       submitUserType(isAgent = true),
       navigateToSoftwareChoicesHome,
-      submitSoftwareChoicesSearch
+      submitSoftwareChoicesSearch,
+      navigateToProductDetails
     )
 
   setup("product-details", "User views product details")
@@ -57,6 +59,8 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
       submitAccountingPeriod,
       navigateToCheckYourAnswers,
       submitCheckYourAnswers,
+      navigateToChoosingSoftware,
+      submitChoosingSoftware,
       navigateToSoftwareChoicesHome,
       submitSoftwareChoicesSearch,
       navigateToProductDetails

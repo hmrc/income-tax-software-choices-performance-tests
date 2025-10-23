@@ -20,15 +20,26 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object ProductDetailsRequests extends BaseRequests {
+object ChoosingSoftwareRequests extends BaseRequests {
 
-  def productDetailsUrl(software: String): String = s"$baseUrl/product-details/$software"
+  val pageUri: String = "/choosing-software-from-your-results"
+  val fullUrl: String = baseUrl + pageUri
 
-  lazy val vendorName: String = "vendor+05"
-
-  val navigateToProductDetails: HttpRequestBuilder =
-    http("Navigate to product details page")
-      .get(productDetailsUrl(vendorName))
+  val navigateToChoosingSoftware: HttpRequestBuilder =
+    http("Navigate to the interstitial page")
+      .get(fullUrl)
       .check(status.is(200))
+      .check(saveCsrfToken)
+
+  val submitChoosingSoftware: HttpRequestBuilder =
+    http("Submit the interstitial page")
+      .post(fullUrl)
+      .formParamSeq(
+        Seq(
+          "csrfToken" -> "#{csrfToken}"
+        )
+      )
+      .check(status.is(303))
+      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
 
 }
