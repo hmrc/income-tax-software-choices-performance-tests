@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object BusinessIncomeRequests extends BaseRequests {
 
-  val pageUri: String = "/which-income-source"
+  val pageUri: String = "/which-income-source-quarterly-updates"
   val fullUrl: String = baseUrl + pageUri
 
   val navigateToBusinessIncome: HttpRequestBuilder =
