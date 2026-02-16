@@ -17,6 +17,7 @@
 package uk.gov.hmrc.perftests.softwarechoices
 
 import io.gatling.core.Predef._
+import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
@@ -30,5 +31,11 @@ object ProductDetailsRequests extends BaseRequests {
     http("Navigate to product details page")
       .get(productDetailsUrl(vendorName))
       .check(status.is(200))
+
+  def repeatProductDetails(times: Int): List[ActionBuilder] = {
+    repeat(times) {
+      exec(navigateToProductDetails)
+    }.actionBuilders
+  }
 
 }
