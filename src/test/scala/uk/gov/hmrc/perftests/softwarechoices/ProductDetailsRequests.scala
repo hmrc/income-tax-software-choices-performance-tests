@@ -22,13 +22,13 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object ProductDetailsRequests extends BaseRequests {
 
-  def productDetailsUrl(software: String): String = s"$baseUrl/product-details/$software"
+  def productDetailsUrl(productId: Int): String = s"$baseUrl/product-details/$productId"
 
-  lazy val vendorName: String = "vendor+05"
+  lazy val vendor5: Int = 105
 
   val navigateToProductDetails: HttpRequestBuilder =
     http("Navigate to product details page")
-      .get(productDetailsUrl(vendorName))
+      .get(productDetailsUrl(vendor5))
       .check(status.is(200))
 
 }
