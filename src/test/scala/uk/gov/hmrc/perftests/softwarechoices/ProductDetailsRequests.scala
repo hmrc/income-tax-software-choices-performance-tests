@@ -22,7 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 
 object ProductDetailsRequests extends BaseRequests {
 
-  def productDetailsUrl(productId: Int): String = s"$baseUrl/product-details/$productId"
+  def productDetailsUrl(productId: Int): String = s"$baseUrl/product-details?productId=$productId"
 
   lazy val vendor5: Int = 105
 
