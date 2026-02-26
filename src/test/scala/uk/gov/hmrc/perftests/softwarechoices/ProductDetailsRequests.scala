@@ -17,8 +17,10 @@
 package uk.gov.hmrc.perftests.softwarechoices
 
 import io.gatling.core.Predef._
+import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
+import uk.gov.hmrc.perftests.softwarechoices.SoftwareResultsRequests.{navigateToSoftwareResults, submitSoftwareResults}
 
 object ProductDetailsRequests extends BaseRequests {
 
@@ -31,4 +33,10 @@ object ProductDetailsRequests extends BaseRequests {
       .get(productDetailsUrl(vendor5))
       .check(status.is(200))
 
+  def repeatResultsAndProductDetails: List[ActionBuilder] =
+    repeat(2) {
+      exec(navigateToSoftwareResults)
+        .exec(submitSoftwareResults)
+        .exec(navigateToProductDetails)
+    }.actionBuilders
 }

@@ -20,19 +20,19 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
-object SoftwareChoicesToolRequests extends BaseRequests {
+object SoftwareResultsRequests extends BaseRequests {
 
   val pageUri: String = "/software-results"
   val fullUrl: String = baseUrl + pageUri
 
-  val navigateToSoftwareChoicesHome: HttpRequestBuilder =
-    http("Navigate to software choices home page")
+  val navigateToSoftwareResults: HttpRequestBuilder =
+    http("Navigate to software results page")
       .get(fullUrl)
       .check(status.is(200))
       .check(saveCsrfToken)
 
-  val submitSoftwareChoicesSearch: HttpRequestBuilder =
-    http("Submit the software choices search on the home page")
+  val submitSoftwareResults: HttpRequestBuilder =
+    http("Submit software results page")
       .post(fullUrl)
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(200))

@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.softwarechoices.ChoosingSoftwareRequests.{navigateT
 import uk.gov.hmrc.perftests.softwarechoices.IndexRequests._
 import uk.gov.hmrc.perftests.softwarechoices.OtherItemsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
-import uk.gov.hmrc.perftests.softwarechoices.SoftwareChoicesToolRequests._
+import uk.gov.hmrc.perftests.softwarechoices.SoftwareResultsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.UserTypeRequests._
 
 class SoftwareChoicesSimulation extends PerformanceTestRunner {
@@ -34,10 +34,7 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
     .withRequests(
       navigateToUserType,
       submitUserType(isAgent = true),
-      navigateToSoftwareChoicesHome,
-      submitSoftwareChoicesSearch,
-      navigateToProductDetails
-    )
+    ).withActions(repeatResultsAndProductDetails:_*)
 
   setup("product-details", "User views product details")
     .withRequests(
@@ -60,11 +57,9 @@ class SoftwareChoicesSimulation extends PerformanceTestRunner {
       navigateToCheckYourAnswers,
       submitCheckYourAnswers,
       navigateToChoosingSoftware,
-      submitChoosingSoftware,
-      navigateToSoftwareChoicesHome,
-      submitSoftwareChoicesSearch,
-      navigateToProductDetails
-    )
+      submitChoosingSoftware
+    ) withActions (repeatResultsAndProductDetails:_*)
+
 
   runSimulation()
 
