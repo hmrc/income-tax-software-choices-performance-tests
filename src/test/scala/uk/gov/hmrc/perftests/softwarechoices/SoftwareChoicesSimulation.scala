@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.perftests.softwarechoices
 
+import io.gatling.core.Predef.pause
+import io.gatling.core.action.builder.ActionBuilder
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.softwarechoices.AccountingPeriodRequests._
 import uk.gov.hmrc.perftests.softwarechoices.AdditionalIncomeRequests._
@@ -25,38 +27,36 @@ import uk.gov.hmrc.perftests.softwarechoices.ChoosingSoftwareRequests.{navigateT
 import uk.gov.hmrc.perftests.softwarechoices.IndexRequests._
 import uk.gov.hmrc.perftests.softwarechoices.OtherItemsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.ProductDetailsRequests._
-import uk.gov.hmrc.perftests.softwarechoices.SoftwareResultsRequests._
 import uk.gov.hmrc.perftests.softwarechoices.UserTypeRequests._
+
+import scala.concurrent.duration.DurationInt
 
 class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
+  val pauseTest: ActionBuilder = pause(25.seconds, 30.seconds).actionBuilders.last
+
   setup("agent-journey", "Agent uses the service through to product details")
-    .withRequests(
-      navigateToUserType,
-      submitUserType(isAgent = true),
+    .withActions(
+      navigateToUserType, pauseTest,
+      submitUserType(isAgent = true)
     ).withActions(repeatResultsAndProductDetails:_*)
 
-  setup("product-details", "User views product details")
-    .withRequests(
-      navigateToProductDetails
-    )
-
   setup("full-journey", "User journey from pre tool questions through to product details")
-    .withRequests(
+    .withActions(
       navigateToIndex,
-      navigateToUserType,
+      navigateToUserType, pauseTest,
       submitUserType(),
-      navigateToBusinessIncome,
+      navigateToBusinessIncome, pauseTest,
       submitBusinessIncome,
-      navigateToAdditionalIncome,
+      navigateToAdditionalIncome, pauseTest,
       submitAdditionalIncome,
-      navigateToOtherItems,
+      navigateToOtherItems, pauseTest,
       submitOtherItems,
-      navigateToAccountingPeriod,
+      navigateToAccountingPeriod, pauseTest,
       submitAccountingPeriod,
-      navigateToCheckYourAnswers,
+      navigateToCheckYourAnswers, pauseTest,
       submitCheckYourAnswers,
-      navigateToChoosingSoftware,
+      navigateToChoosingSoftware, pauseTest,
       submitChoosingSoftware
     ) withActions (repeatResultsAndProductDetails:_*)
 
