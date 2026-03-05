@@ -33,7 +33,7 @@ import scala.concurrent.duration.DurationInt
 
 class SoftwareChoicesSimulation extends PerformanceTestRunner {
 
-  val pauseTest: ActionBuilder = pause(25.seconds, 30.seconds).actionBuilders.last
+  val pauseTest: ActionBuilder = pause(20.seconds).actionBuilders.last
 
   setup("agent-journey", "Agent uses the service through to product details")
     .withActions(

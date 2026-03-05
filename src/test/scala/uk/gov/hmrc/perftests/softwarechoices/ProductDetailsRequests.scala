@@ -27,7 +27,7 @@ import scala.concurrent.duration.DurationInt
 object ProductDetailsRequests extends BaseRequests {
 
   def productDetailsUrl(productId: Int): String = s"$baseUrl/product-details?productId=$productId"
-  val pauseTest: ActionBuilder = pause(25.seconds, 30.seconds).actionBuilders.last
+  val pauseTest: ActionBuilder = pause(20.seconds).actionBuilders.last
 
   lazy val vendor5: Int = 105
 
