@@ -42,7 +42,7 @@ object UserTypeRequests extends BaseRequests {
       )
       .check(status.is(303))
       .check(redirectionLocationIs(
-        location = if(isAgent) SoftwareChoicesToolRequests.pageUri else BusinessIncomeRequests.pageUri
+        location = if(isAgent) SoftwareResultsRequests.pageUri else BusinessIncomeRequests.pageUri
       ))
 
 }

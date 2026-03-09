@@ -40,6 +40,6 @@ object ChoosingSoftwareRequests extends BaseRequests {
         )
       )
       .check(status.is(303))
-      .check(redirectionLocationIs(SoftwareChoicesToolRequests.pageUri))
+      .check(redirectionLocationIs(SoftwareResultsRequests.pageUri))
 
 }
